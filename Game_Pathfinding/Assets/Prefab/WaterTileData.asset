@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a787c41dd48b11a418ad836d89076626, type: 3}
   m_Name: WaterTileData
   m_EditorClassIdentifier: 
-  tiles: []
-  speedMovement: 0
+  tiles:
+  - {fileID: 11400000, guid: 87c77ac4ab4b5a2429f335b185ba7402, type: 2}
+  speedMovement: 2

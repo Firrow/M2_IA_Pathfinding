@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a787c41dd48b11a418ad836d89076626, type: 3}
   m_Name: WallTileData
   m_EditorClassIdentifier: 
-  tiles: []
+  tiles:
+  - {fileID: 11400000, guid: 5b349f50520ded24d8af5ed37a5ff823, type: 2}
   speedMovement: 0

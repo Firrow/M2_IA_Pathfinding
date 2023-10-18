@@ -1,0 +1,11 @@
+Map cool pour A* pas pour Dikjstra
+
+A* : matrice qui correspond à la map + on évalue par le coup du terrain
+Dikjstra : à recalculer si on est trop loin de la cible ?
+
+Si + de temps mécanique intéressante --> Recalculer le chemin uniquement si l'ennemi voit le joueur : utiliser un rayon
+voir la fonction déjà existante sur unity pour voir les objets
+
+Pour faire les 2 algos :
+1 niveau A* : commencer par lui car le terrain est plus approprié pour cet algo
+1 niveau Dijkstra

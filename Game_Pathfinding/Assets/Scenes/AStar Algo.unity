@@ -2322,6 +2322,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7444433659055839162, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 916048262}
+    - target: {fileID: 7444433659055839162, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
+      propertyPath: grid
+      value: 
+      objectReference: {fileID: 241740309}
+    - target: {fileID: 7444433659055839162, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
       propertyPath: moveTime
       value: 1
       objectReference: {fileID: 0}

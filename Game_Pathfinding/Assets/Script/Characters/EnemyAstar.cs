@@ -10,6 +10,7 @@ public class EnemyAstar : MonoBehaviour
     //map
     private MapManager mapManager;
     [SerializeField] private Tilemap map;
+    public Grid grid;
 
     //déplacement Ennemis
     [SerializeField] private float moveTime;
@@ -20,8 +21,8 @@ public class EnemyAstar : MonoBehaviour
     List<TileBase> openList = new List<TileBase>();
     List<TileBase> closeList = new List<TileBase>();
 
-    private Dictionary<TileBase, Vector3Int> testOpenList = new Dictionary<TileBase, Vector3Int>();
-    private int index = 0;
+    //Autre éléments
+    private GameObject player;
 
 
     private void Awake()
@@ -34,13 +35,13 @@ public class EnemyAstar : MonoBehaviour
     // Algo A*
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
+        
     }
 
     void Update()
     {
-        Move();
-        GetActualTile();
+
     }
 
     private void Move()
@@ -58,18 +59,5 @@ public class EnemyAstar : MonoBehaviour
         transform.position += transform.up * Time.deltaTime * adjustedSpeed;
     }
 
-    private void GetActualTile()
-    {
-        Vector2 EnemyPosition = transform.position;
-        //Debug.Log(Vector3Int.FloorToInt(EnemyPosition));
-        Vector3Int gridPosition = map.WorldToCell(Vector3Int.FloorToInt(EnemyPosition));
-        TileBase actualTile = map.GetTile(gridPosition);
-
-        openList.Add(actualTile);
-    }
-
-    private void Astar()
-    {
-
-    }
 }
+

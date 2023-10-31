@@ -1,16 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-
-
-/*
- NOTE : L'ennemi pouvant aller en diagonal, il peut chevaucher certaines tuiles durant son déplacement
-        Cependant, uniquement la valeur de la tuile d'arrivée sera prise en compte pour la vitesse de déplacement
- */
-
 
 
 public class EnemyAstar : MonoBehaviour
@@ -20,18 +11,13 @@ public class EnemyAstar : MonoBehaviour
     public Grid grid;
     public int speed;
 
-    private int cost;
     private MapManager mapManager;
     private Vector3Int goal;
     private Vector3Int start;
     private Vector3Int current;
-    Dictionary<Vector3Int, int> openList = new Dictionary<Vector3Int, int>();
-    Dictionary<Vector3Int, int> closeList = new Dictionary<Vector3Int, int>();
-    Dictionary<Vector3Int, int> possibleTiles = new Dictionary<Vector3Int, int>();
-    Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
-    List<Vector3Int> neighbors = new List<Vector3Int>();
+
     List<Vector3Int> path = new List<Vector3Int>();
-    private int currentPathIndex = 0;
+    int currentPathIndex = 0;
 
 
     private void Awake()
@@ -58,31 +44,19 @@ public class EnemyAstar : MonoBehaviour
 
     void Update()
     {
-        // Vérifiez si l'ennemi a atteint la fin du chemin
-        if (currentPathIndex < path.Count)
-        {
-            Vector3Int nextTile = path[currentPathIndex];
-            Vector3 nextTilePosition = grid.GetCellCenterWorld(nextTile);
-
-            // Vérifiez la distance entre l'ennemi et la tuile suivante
-            float distanceToNextTile = Vector3.Distance(transform.position, nextTilePosition);
-            if (distanceToNextTile < 0.1f)
-            {
-                currentPathIndex++; // Passez à la tuile suivante
-            }
-            else
-            {
-                // Déplacez l'ennemi vers la tuile suivante
-                float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(transform.position);
-                Vector3 moveDirection = (nextTilePosition - transform.position).normalized;
-                transform.position += moveDirection * adjustedSpeed * Time.deltaTime; // Ajoutez la vitesse de déplacement de l'ennemi en fonction de la tuile sur laquelle il se trouve
-            }
-        }
+        MoveEnemy();
     }
 
     private List<Vector3Int> AStar(Vector3Int goal)
     {
-        //--------------------------------------------------------------------------------------------
+        Dictionary<Vector3Int, int> openList = new Dictionary<Vector3Int, int>();
+        Dictionary<Vector3Int, int> closeList = new Dictionary<Vector3Int, int>();
+        Dictionary<Vector3Int, int> possibleTiles = new Dictionary<Vector3Int, int>();
+        Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
+        List<Vector3Int> neighbors = new List<Vector3Int>();
+        int cost;
+
+
         //1) On ajoute la tuile de départ à la liste ouverte
         //2) Ajouter son cout (= 0)
         cost = 0;
@@ -96,13 +70,12 @@ public class EnemyAstar : MonoBehaviour
             //a) si tuile actuelle est la tuile de fin --> FIN sinon
             if (current == goal)
             {
-                //Debug.Log("FIN !!!");
                 openList.Clear();
                 return ReconstructPath(cameFrom, current);
             }
             else
             {
-                //b) déplacer la tuile actuelle de la liste ouverte à la liste fermée //ATTENTION : A VOIR SI PAS D'ERREUR TOUR 1 AVEC CURRENT
+                //b) déplacer la tuile actuelle de la liste ouverte à la liste fermée
                 closeList.Add(current, cost);
                 openList.Remove(current);
 
@@ -133,6 +106,7 @@ public class EnemyAstar : MonoBehaviour
                         minCost = tile.Value;
                     }
                 }
+
                 //f) choisir un des voisins ayant le cout le + bas pour devenir la nouvelle "current"
                 foreach (var tile in openList)
                 {
@@ -154,6 +128,32 @@ public class EnemyAstar : MonoBehaviour
         throw new Exception("ERREUR CHEMIN IMPOSSIBLE ! ");
     }
 
+    private void MoveEnemy()
+    {
+        // Vérifiez si l'ennemi a atteint la fin du chemin
+        if (currentPathIndex < path.Count)
+        {
+            Vector3Int nextTile = path[currentPathIndex];
+            Vector3 nextTilePosition = grid.GetCellCenterWorld(nextTile);
+
+            // Vérifiez la distance entre l'ennemi et la tuile suivante
+            float distanceToNextTile = Vector3.Distance(transform.position, nextTilePosition);
+            if (distanceToNextTile < 0.1f)
+            {
+                currentPathIndex++; // Passez à la tuile suivante
+            }
+            else
+            {
+                // Déplacez l'ennemi vers la tuile suivante
+                float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(transform.position);
+                Vector3 moveDirection = (nextTilePosition - transform.position).normalized;
+                transform.position += moveDirection * adjustedSpeed * Time.deltaTime; // Ajoutez la vitesse de déplacement de l'ennemi en fonction de la tuile sur laquelle il se trouve
+            }
+        }
+    }
+
+
+
     private int DistanceBetween(Vector3Int current, Vector3Int otherTile)
     {
         //diapo 45 : prendre pour cout la distance entre les deux tuiles + le cout du terrain
@@ -162,7 +162,6 @@ public class EnemyAstar : MonoBehaviour
 
         return dx + dy;
     }
-
 
     private List<Vector3Int> ReconstructPath(Dictionary<Vector3Int, Vector3Int> cameFrom, Vector3Int current)
     {

@@ -31,6 +31,14 @@ public class Player : MonoBehaviour
             StartCoroutine(MovePlayer(new Vector3(moveHorizontal, moveVertical, 0f)));*/
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Enemy")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     /*IEnumerator MovePlayer(Vector3 direction)
     {
         isMoving = true;

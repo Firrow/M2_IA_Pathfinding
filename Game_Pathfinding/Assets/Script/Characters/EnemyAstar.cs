@@ -13,6 +13,7 @@ public class EnemyAstar : MonoBehaviour
 
     private MapManager mapManager;
     private Vector3Int goal;
+    private Vector3Int newGoal;
     private Vector3Int start;
     private Vector3Int current;
 
@@ -33,18 +34,26 @@ public class EnemyAstar : MonoBehaviour
 
         //récupérer tuile position player
         goal = mapManager.GetGridCellAtWorldPosition(player.transform.position, grid);
+        
 
         path = AStar(goal);
 
-        foreach (var tile in path)
+        /*foreach (var tile in path)
         {
             Debug.Log(tile);
         }
-
+        */
     }
 
     void Update()
     {
+        newGoal = mapManager.GetGridCellAtWorldPosition(player.transform.position, grid);
+        if (goal != newGoal)
+        {
+            goal = newGoal;
+            start = mapManager.GetGridCellAtWorldPosition(this.transform.position, grid);
+            path = AStar(goal);
+        }
         MoveEnemy();
     }
 

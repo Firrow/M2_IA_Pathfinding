@@ -32,7 +32,12 @@ public class MapManager : MonoBehaviour
     }
 
     //Permet d'avoir le nom du type de tuile
-    public TileBase GetTile(Vector3Int position)
+    /*public TileBase GetTile(Vector3Int position)
+    {
+        Vector3Int gridPosition = map.WorldToCell(Vector3Int.FloorToInt(position));
+        return map.GetTile(gridPosition);
+    }*/
+    public TileBase GetTile(Vector3 position)
     {
         Vector3Int gridPosition = map.WorldToCell(Vector3Int.FloorToInt(position));
         return map.GetTile(gridPosition);

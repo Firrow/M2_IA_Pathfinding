@@ -30,6 +30,7 @@ public class EnemyAstar : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         start = mapManager.GetGridCellAtWorldPosition(this.transform.position, grid);
+
         //récupérer tuile position player
         goal = mapManager.GetGridCellAtWorldPosition(player.transform.position, grid);
 

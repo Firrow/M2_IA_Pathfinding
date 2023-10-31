@@ -229,7 +229,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.4453444
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -274,11 +274,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5013555356958700710, guid: 06466a85618c8d143adbb1323765731e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.49
+      value: 6.43
       objectReference: {fileID: 0}
     - target: {fileID: 5013555356958700710, guid: 06466a85618c8d143adbb1323765731e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.51
+      value: -3.32
       objectReference: {fileID: 0}
     - target: {fileID: 5013555356958700710, guid: 06466a85618c8d143adbb1323765731e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2921,13 +2921,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 614380243028694799, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
+      propertyPath: grid
+      value: 
+      objectReference: {fileID: 241740309}
+    - target: {fileID: 614380243028694799, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5707163372693121652, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
       propertyPath: grid
       value: 
       objectReference: {fileID: 241740309}
     - target: {fileID: 5878208648450352026, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7444433659055839162, guid: 861a5d12bd664a14eb802f571dcf3342, type: 3}
       propertyPath: map

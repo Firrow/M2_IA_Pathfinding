@@ -13,26 +13,14 @@ public class Player : MonoBehaviour
         mapManager = FindAnyObjectByType<MapManager>();
     }
 
-    //Déplacement du joueur //A RETRAVAILLER POUR NE PAS QU'IL Y EST DE BUGS AVEC LES MURS
+    //Déplacement du joueur
     void Update()
     {
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
 
-        Vector3 nextPosition = this.transform.position + new Vector3(moveHorizontal / 2f, moveVertical / 2f, 0); //marche partiellement
-
-        if (mapManager.GetTile(nextPosition).name != "wall")
-        {
-            float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(this.transform.position + transform.up * Time.deltaTime);
-            transform.position += new Vector3(moveHorizontal, moveVertical, 0) * adjustedSpeed * Time.deltaTime;
-        }
-
-        
-        //float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(this.transform.position + transform.up * Time.deltaTime);
-        //transform.position += new Vector3(moveHorizontal, moveVertical, 0) * adjustedSpeed * Time.deltaTime;
-
-        /*if (!isMoving)
-            StartCoroutine(MovePlayer(new Vector3(moveHorizontal, moveVertical, 0f)));*/
+        float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(this.transform.position + transform.up * Time.deltaTime);
+        transform.position += new Vector3(moveHorizontal, moveVertical, 0) * adjustedSpeed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -42,22 +30,4 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    /*IEnumerator MovePlayer(Vector3 direction)
-    {
-        isMoving = true;
-        float nextMove = 0f;
-        startPos = this.transform.position;
-        endPos = startPos + direction;
-
-        while (nextMove < MoveTime)
-        {
-            this.transform.position = Vector3.Lerp(startPos, endPos, nextMove / MoveTime);
-            nextMove += Time.deltaTime;
-            yield return null;
-        }
-
-        this.transform.position = endPos; //pour éviter les décalages avec les cases
-        isMoving = false;
-    }*/
 }

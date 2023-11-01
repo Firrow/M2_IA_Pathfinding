@@ -29,13 +29,19 @@ public class EnemyAstar : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        //récupérer tuile position ennemi
         start = mapManager.GetGridCellAtWorldPosition(this.transform.position, grid);
 
         //récupérer tuile position player
         goal = mapManager.GetGridCellAtWorldPosition(player.transform.position, grid);
-        
+
 
         path = AStar(goal);
+
+        foreach (var i in path)
+        {
+            Debug.Log(i);
+        }
     }
 
     void Update()
@@ -44,8 +50,16 @@ public class EnemyAstar : MonoBehaviour
         if (goal != newGoal)
         {
             goal = newGoal;
+            Vector3Int nextTileMove = path[currentPathIndex];
             start = mapManager.GetGridCellAtWorldPosition(this.transform.position, grid);
             path = AStar(goal);
+
+
+            if (path.Count > 1 && nextTileMove == path[1]) //si la prochaine tuile de ton mouvement == tuile sur laquelle tu dois te rendre en premier
+                                                           //--> ignore le mouvement qui te replace sur ta tuile actuelle
+                currentPathIndex = 1;
+            else
+                currentPathIndex = 0;                      //sinon retourne au centre de ta tuile actuelle 
         }
         MoveEnemy();
     }

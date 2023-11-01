@@ -2865,6 +2865,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1198666027931068998, guid: cf10a0c783d7dc14cbef269fc45fe10c, type: 3}
+      propertyPath: grid
+      value: 
+      objectReference: {fileID: 241740309}
+    - target: {fileID: 1198666027931068998, guid: cf10a0c783d7dc14cbef269fc45fe10c, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8738928588534632243, guid: cf10a0c783d7dc14cbef269fc45fe10c, type: 3}
       propertyPath: m_Name
       value: Enemy Dijkstra
@@ -2925,6 +2933,10 @@ PrefabInstance:
     - target: {fileID: 5013555356958700710, guid: 06466a85618c8d143adbb1323765731e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128969453630443475, guid: 06466a85618c8d143adbb1323765731e, type: 3}
+      propertyPath: speed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

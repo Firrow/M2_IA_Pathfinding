@@ -69,7 +69,7 @@ public class MapManager : MonoBehaviour
         return map.CellToWorld(cell);
     }
 
-
+    //ASTAR : récupère uniquement les voisins de la tuile passée en paramètre
     public List<Vector3Int> GetNeighbors(Vector3Int cell)
     {
         List<Vector3Int> neighbors = new List<Vector3Int>();
@@ -91,6 +91,19 @@ public class MapManager : MonoBehaviour
          NOTE : Lorsque l'ennemi peut aller en diagonal, il peut chevaucher certaines tuiles durant son déplacement
                 Cependant, uniquement la valeur de la tuile d'arrivée sera prise en compte pour la vitesse de déplacement
         */
+
+        return neighbors;
+    }
+
+    //DIJKSTRA : Récupérer les voisins du dernier point du chemin passé en paramètre ainsi que le cout global des chemins menant aux voisins
+    public List<Path> GetPathNeighbors(Path path)
+    {
+        List<Path> neighbors = new List<Path>();
+
+        neighbors.Add(new Path(new Vector3Int(path.destination.x + 1, path.destination.y, path.destination.z), (int)GetTileMovementSpeed(new Vector3(path.destination.x + 1, path.destination.y, path.destination.z)), path.GlobalPath)); // Droite
+        neighbors.Add(new Path(new Vector3Int(path.destination.x - 1, path.destination.y, path.destination.z), (int)GetTileMovementSpeed(new Vector3(path.destination.x - 1, path.destination.y, path.destination.z)), path.GlobalPath)); // Gauche
+        neighbors.Add(new Path(new Vector3Int(path.destination.x, path.destination.y + 1, path.destination.z), (int)GetTileMovementSpeed(new Vector3(path.destination.x, path.destination.y + 1, path.destination.z)), path.GlobalPath)); // Haut
+        neighbors.Add(new Path(new Vector3Int(path.destination.x, path.destination.y - 1, path.destination.z), (int)GetTileMovementSpeed(new Vector3(path.destination.x, path.destination.y - 1, path.destination.z)), path.GlobalPath)); // Bas 
 
         return neighbors;
     }

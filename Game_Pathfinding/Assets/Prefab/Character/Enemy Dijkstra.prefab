@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 490418717159845206}
   - component: {fileID: -3684302224848719271}
+  - component: {fileID: 1198666027931068998}
   - component: {fileID: 7787254602730366355}
   - component: {fileID: 5878208648450352026}
-  - component: {fileID: 1198666027931068998}
   m_Layer: 0
   m_Name: Enemy Dijkstra
   m_TagString: Enemy
@@ -87,6 +87,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1198666027931068998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8738928588534632243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e88f701c9920347ba6a9fdc6d0dcde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &7787254602730366355
 Rigidbody2D:
   serializedVersion: 4
@@ -149,15 +161,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.6435603
---- !u!114 &1198666027931068998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8738928588534632243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0e88f701c9920347ba6a9fdc6d0dcde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

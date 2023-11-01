@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class EnemyAstar : MonoBehaviour
 {
-    //Autre éléments
     private GameObject player;
     public Grid grid;
     public int speed;
@@ -37,12 +36,6 @@ public class EnemyAstar : MonoBehaviour
         
 
         path = AStar(goal);
-
-        /*foreach (var tile in path)
-        {
-            Debug.Log(tile);
-        }
-        */
     }
 
     void Update()

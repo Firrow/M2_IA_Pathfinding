@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
             transform.position += new Vector3(moveHorizontal, moveVertical, 0) * adjustedSpeed * Time.deltaTime;
         }
 
+        
+        //float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(this.transform.position + transform.up * Time.deltaTime);
+        //transform.position += new Vector3(moveHorizontal, moveVertical, 0) * adjustedSpeed * Time.deltaTime;
+
         /*if (!isMoving)
             StartCoroutine(MovePlayer(new Vector3(moveHorizontal, moveVertical, 0f)));*/
     }

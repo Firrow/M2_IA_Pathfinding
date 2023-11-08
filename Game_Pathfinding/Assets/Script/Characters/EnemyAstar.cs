@@ -86,7 +86,6 @@ public class EnemyAstar : MonoBehaviour
         //3) TANT QUE LA LISTE OUVERTE N'EST PAS VIDE
         while (openList.Count > 0)
         {
-            //Debug.Log("tuile actuelle : " + current);
             //a) si tuile actuelle est la tuile de fin --> FIN sinon
             if (current == goal)
             {
@@ -176,7 +175,6 @@ public class EnemyAstar : MonoBehaviour
 
     private int DistanceBetween(Vector3Int current, Vector3Int otherTile)
     {
-        //diapo 45 : prendre pour cout la distance entre les deux tuiles + le cout du terrain
         int dx = Math.Abs(current.x - otherTile.x);
         int dy = Math.Abs(current.y - otherTile.y);
 

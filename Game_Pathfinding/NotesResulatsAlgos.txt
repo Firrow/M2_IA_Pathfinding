@@ -1,4 +1,4 @@
-Observations A* et Dijkstra :
+										Observations A* et Dijkstra :
 
 Dijkstra est souvent plus rapide qu'AStar lorsque l'on met les deux araignées sur le même terrain.
 Plusieurs raisons peuvent expliquer ceci :
@@ -6,3 +6,28 @@ Plusieurs raisons peuvent expliquer ceci :
 	- Le terrain est petit : 10 * 19 cases environ, ce qui n'handicape pas Dijkstra. Cet algo est en effet beaucoup moins
 		efficace lorsque les terrains sont très grand, car il doit analyser beaucoup plus de chemin contrairement à
 		A* qui analyse le terrain au fur et à mesure de sa progression. Sur un terrain plus grand, A* serait bien plus efficace.
+
+				
+											Explications algos
+A* :
+1) On ajoute la tuile de départ à la liste ouverte +  2) Ajouter son cout (= 0)
+3) TANT QUE LA LISTE OUVERTE N'EST PAS VIDE
+	a) si tuile actuelle est la tuile de fin --> FIN sinon
+	b) déplacer la tuile actuelle de la liste ouverte à la liste fermée
+	c) déterminer toutes les tuiles voisines
+	d) pour toutes les tuiles voisines v :
+		si v n'est ni dans liste ouverte, ni dans liste fermée, ni de type "mur" --> calculer son cout + ajouter dans liste ouverte (dictionnaire (tuile, cout))
+	e) déterminer le cout le + bas parmis les tuiles de la liste ouverte
+	f) choisir un des voisins ayant le cout le + bas pour devenir la nouvelle tuile de l'araignée
+	g) choisir la nouvelle tuile actuelle
+4) Déplacement de l'araignée sur la tuile actuelle
+	
+Dijkstra :
+1) On initialise la case actuelle
+3) TANT QUE LA LISTE OUVERTE N'EST PAS VIDE
+	a) On récupère le point le plus proche, on le retire de la liste à traiter et on l'ajoute à la liste finale
+	b) si tuile actuelle est la tuile de fin --> FIN sinon
+	c) On récupère les sommets voisins
+	d) On ajoute les sommets voisins à la liste en conservant les moins chers
+	e) On ajoute les sommets voisins s'ils n'existent pas dans la liste ouverte, ni si les chemins sont déjà verrouilés, ni si la tuile est un mur
+4) Déplacement de l'araignée sur le chemin trouvé

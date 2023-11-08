@@ -60,6 +60,7 @@ public class EnemyDijkstra : MonoBehaviour
     {
         List<Path> closeList = new List<Path>();
         List<Path> openList = new List<Path>();
+        // On initialise la case actuelle
         openList.Add(new Path(start, 0, new List<Path>()));
 
         while (true)
@@ -75,7 +76,7 @@ public class EnemyDijkstra : MonoBehaviour
                 return ReconstructPath(nextPoint);
             }
 
-            // On récupère les sommets voisins(filtré pour retirer les 0)
+            // On récupère les sommets voisins
             List<Path> neighbors = mapManager.GetPathNeighbors(nextPoint);
 
             // On ajoute les sommets voisins à la liste en conservant les moins chers
@@ -89,7 +90,7 @@ public class EnemyDijkstra : MonoBehaviour
                 }
             }
 
-            // On ajoute les sommets voisins s'ils n'existent pas dans la liste ni les chemins déjà verrouilés
+            // On ajoute les sommets voisins s'ils n'existent pas dans la liste ouverte ni si les chemins sont déjà verrouilés
             foreach (var neighbor in neighbors)
             {
                 if (!openList.Contains(neighbor) && !closeList.Contains(neighbor) && mapManager.GetTile(neighbor.destination).name != "wall")

@@ -33,24 +33,27 @@ public class EnemyDijkstra : MonoBehaviour
         path = Dijkstra(goal);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        newGoal = mapManager.GetGridCellAtWorldPosition(player.transform.position, grid);
-        if (goal != newGoal)
+        if (player != null)
         {
-            goal = newGoal;
-            Vector3Int nextTileMove = path[currentPathIndex];
-            start = mapManager.GetGridCellAtWorldPosition(this.transform.position, grid);
-            path = Dijkstra(goal);
+            newGoal = mapManager.GetGridCellAtWorldPosition(player.transform.position, grid);
+            if (goal != newGoal)
+            {
+                goal = newGoal;
+                Vector3Int nextTileMove = path[currentPathIndex];
+                start = mapManager.GetGridCellAtWorldPosition(this.transform.position, grid);
+                path = Dijkstra(goal);
 
 
-            if (path.Count > 1 && nextTileMove == path[1]) //si la prochaine tuile de ton mouvement == tuile sur laquelle tu dois te rendre en premier
-                                                           //--> ignore le mouvement qui te replace sur ta tuile actuelle
-                currentPathIndex = 1;
-            else
-                currentPathIndex = 0;                      //sinon retourne au centre de ta tuile actuelle 
+                if (path.Count > 1 && nextTileMove == path[1]) //si la prochaine tuile de ton mouvement == tuile sur laquelle tu dois te rendre en premier
+                                                               //--> ignore le mouvement qui te replace sur ta tuile actuelle
+                    currentPathIndex = 1;
+                else
+                    currentPathIndex = 0;                      //sinon retourne au centre de ta tuile actuelle 
+            }
+            MoveEnemy();
         }
-        MoveEnemy();
     }
 
     private List<Vector3Int> Dijkstra(Vector3Int goal)
@@ -116,7 +119,7 @@ public class EnemyDijkstra : MonoBehaviour
                 // Déplacez l'ennemi vers la tuile suivante
                 float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(transform.position);
                 Vector3 moveDirection = (nextTilePosition - transform.position).normalized;
-                transform.position += moveDirection * adjustedSpeed * Time.deltaTime; // Ajoutez la vitesse de déplacement de l'ennemi en fonction de la tuile sur laquelle il se trouve
+                transform.position += moveDirection * adjustedSpeed * Time.fixedDeltaTime; // Ajoutez la vitesse de déplacement de l'ennemi en fonction de la tuile sur laquelle il se trouve
             }
         }
     }

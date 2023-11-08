@@ -14,13 +14,13 @@ public class Player : MonoBehaviour
     }
 
     //Déplacement du joueur
-    void Update()
+    void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
 
         float adjustedSpeed = speed / mapManager.GetTileMovementSpeed(this.transform.position + transform.up * Time.deltaTime);
-        transform.position += new Vector3(moveHorizontal, moveVertical, 0) * adjustedSpeed * Time.deltaTime;
+        transform.position += new Vector3(moveHorizontal, moveVertical, 0) * adjustedSpeed * Time.fixedDeltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         if (collision.transform.tag == "Enemy")
         {
             Destroy(this.gameObject);
+            Debug.Log(" Ennemi vainqueur : " + collision.transform.name);
         }
     }
 }

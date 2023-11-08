@@ -1,0 +1,8 @@
+Observations A* et Dijkstra :
+
+Dijkstra est souvent plus rapide qu'AStar lorsque l'on met les deux araignées sur le même terrain.
+Plusieurs raisons peuvent expliquer ceci :
+	- A* ne connait pas le coût total du chemin qu'il doit parcourir contrairement à Dijkstra.
+	- Le terrain est petit : 10 * 19 cases environ, ce qui n'handicape pas Dijkstra. Cet algo est en effet beaucoup moins
+		efficace lorsque les terrains sont très grand, car il doit analyser beaucoup plus de chemin contrairement à
+		A* qui analyse le terrain au fur et à mesure de sa progression. Sur un terrain plus grand, A* serait bien plus efficace.

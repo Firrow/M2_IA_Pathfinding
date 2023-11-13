@@ -31,3 +31,7 @@ Dijkstra :
 	d) Pour chaque éléments de la liste ouverte, on regarde si notre nouveau chemin coûte moins cher et si c'est le cas, on l'enregistre dans la liste ouverte comme étant le meilleur
 	e) On ajoute les sommets voisins s'ils n'existent pas dans la liste ouverte, ni si les chemins sont déjà verrouilés, ni si la tuile est un mur
 4) Déplacement de l'araignée sur le chemin trouvé
+
+
+
+LIEN VERS LE PROJET GITHUB : https://github.com/Firrow/M2_IA_Pathfinding

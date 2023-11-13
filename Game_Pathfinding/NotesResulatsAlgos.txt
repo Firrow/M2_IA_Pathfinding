@@ -28,6 +28,6 @@ Dijkstra :
 	a) On récupère le point le plus proche, on le retire de la liste à traiter et on l'ajoute à la liste finale
 	b) si tuile actuelle est la tuile de fin --> FIN sinon
 	c) On récupère les sommets voisins
-	d) On ajoute les sommets voisins à la liste en conservant les moins chers
+	d) Pour chaque éléments de la liste ouverte, on regarde si notre nouveau chemin coûte moins cher et si c'est le cas, on l'enregistre dans la liste ouverte comme étant le meilleur
 	e) On ajoute les sommets voisins s'ils n'existent pas dans la liste ouverte, ni si les chemins sont déjà verrouilés, ni si la tuile est un mur
 4) Déplacement de l'araignée sur le chemin trouvé

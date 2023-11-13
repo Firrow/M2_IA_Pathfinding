@@ -37,11 +37,6 @@ public class EnemyAstar : MonoBehaviour
 
 
         path = AStar(goal);
-
-        foreach (var i in path)
-        {
-            Debug.Log(i);
-        }
     }
 
     void FixedUpdate()

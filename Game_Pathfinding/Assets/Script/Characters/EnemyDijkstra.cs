@@ -79,7 +79,7 @@ public class EnemyDijkstra : MonoBehaviour
             // On récupère les sommets voisins
             List<Path> neighbors = mapManager.GetPathNeighbors(nextPoint);
 
-            // On ajoute les sommets voisins à la liste en conservant les moins chers
+            // On regarde si notre nouveau chemin coûte moins cher et si c'est le cas, on l'enregistre dans la liste ouverte comme étant le meilleur
             for (int i = 0; i < openList.Count; i++)
             {
                 Path newPath = neighbors.Find((n) => n == openList[i]);

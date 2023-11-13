@@ -25,10 +25,10 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         //Permet d'afficher la position de la tuile sur laquelle on clique (pour debug)
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             DebugTilePositonWithClick();
-        }
+        }*/
     }
 
     //Permet d'avoir le nom du type de tuile
@@ -81,13 +81,6 @@ public class MapManager : MonoBehaviour
         neighbors.Add(new Vector3Int(cell.x, cell.y - 1, cell.z)); // Bas
 
 
-        //CASES DIAGONALES
-        /*neighbors.Add(new Vector3Int(cell.x + 1, cell.y + 1, cell.z)); // Diagonale Haut Droit
-        neighbors.Add(new Vector3Int(cell.x + 1, cell.y - 1, cell.z)); // Diagonale Haut Gauche
-        neighbors.Add(new Vector3Int(cell.x - 1, cell.y + 1, cell.z)); // Diagonale Bas Droit
-        neighbors.Add(new Vector3Int(cell.x - 1, cell.y - 1, cell.z)); // Diagonale Bas Gauche*/
-
-
         /*
          NOTE : Lorsque l'ennemi peut aller en diagonal, il peut chevaucher certaines tuiles durant son déplacement
                 Cependant, uniquement la valeur de la tuile d'arrivée sera prise en compte pour la vitesse de déplacement
@@ -124,7 +117,6 @@ public class MapManager : MonoBehaviour
 
         float speedMovement = dataFromTile[clickedTile].speedMovement;
 
-        //Debug.Log("Tile : " + clickedTile + " speed movement : " + speedMovement);
         Debug.Log(gridPosition);
     }
 }

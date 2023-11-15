@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     //Déplacement du joueur
     void FixedUpdate()
     {
+        Debug.Log("yoo");
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
 

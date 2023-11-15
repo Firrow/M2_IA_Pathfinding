@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4495210685805001368}
   - component: {fileID: 3626203598812428969}
   - component: {fileID: 2798660026171761450}
+  - component: {fileID: 4617583194559374029}
   m_Layer: 0
   m_Name: Enemy Boids
   m_TagString: Untagged
@@ -19,21 +20,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &938562850114791981
-Transform:
+--- !u!224 &938562850114791981
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6644838168125503681}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2.65, y: 3.07}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &4495210685805001368
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -148,3 +153,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.07214713}
   serializedVersion: 2
   m_Radius: 1.5678189
+--- !u!114 &4617583194559374029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644838168125503681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bb1ba4d363ae04a974f99f6cb978c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

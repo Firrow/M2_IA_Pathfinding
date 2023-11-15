@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class EnemyBoids : MonoBehaviour
 {
+    private BoidsGameManager gameManager;
+    private List<GameObject> AllBoids = new List<GameObject>();
+
     void Start()
     {
-        
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BoidsGameManager>();
+        AllBoids = gameManager.Boids;
     }
 
     void Update()
     {
         
     }
-
-    // FONCTION CREATION RANDOM BOIDS
 
     // Calculer la distance avec un autre Boid
 

@@ -6,22 +6,43 @@ using UnityEngine;
 public class EnemyBoids : MonoBehaviour
 {
     private BoidsGameManager gameManager;
-    private List<GameObject> AllBoids = new List<GameObject>();
+    private List<GameObject> AllSpiders = new List<GameObject>();
+    private Rigidbody rb;
 
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BoidsGameManager>();
-        AllBoids = gameManager.boids;
+        AllSpiders = gameManager.boids;
+        rb = this.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        
+        moveCloser(AllSpiders);
     }
 
     // Calculer la distance avec un autre Boid
+    private float DistanceBetweenTwoSpiders(GameObject spider)
+    {
+        return Vector3.Distance(this.transform.position, spider.transform.position);
+    }
 
     // FONCTION D'ATTRACTION moveCloser(tableau boids) : 
+    private void moveCloser(List<GameObject> spiders)
+    {
+        float avg = 0;
+        foreach (var spider in spiders)
+        {
+            if (spider != this.gameObject)
+            {
+                avg += Vector3.Distance(spider.transform.position, this.transform.position);
+            }
+        }
+
+        avg /= spiders.Count;
+
+        rb.velocity -= new Vector3((avg / 100), (avg / 100), 0); // DONT WORK
+    }
     // Calculer la distance moyenne avec les autres boids
     // Adapter la vitesse (-=) de chaque boids en fonction de cette distance
 

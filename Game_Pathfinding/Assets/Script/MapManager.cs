@@ -80,12 +80,6 @@ public class MapManager : MonoBehaviour
         neighbors.Add(new Vector3Int(cell.x, cell.y + 1, cell.z)); // Haut
         neighbors.Add(new Vector3Int(cell.x, cell.y - 1, cell.z)); // Bas
 
-
-        /*
-         NOTE : Lorsque l'ennemi peut aller en diagonal, il peut chevaucher certaines tuiles durant son déplacement
-                Cependant, uniquement la valeur de la tuile d'arrivée sera prise en compte pour la vitesse de déplacement
-        */
-
         return neighbors;
     }
 

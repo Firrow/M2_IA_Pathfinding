@@ -11,7 +11,7 @@ public class EnemyBoids : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BoidsGameManager>();
-        AllBoids = gameManager.Boids;
+        AllBoids = gameManager.boids;
     }
 
     void Update()

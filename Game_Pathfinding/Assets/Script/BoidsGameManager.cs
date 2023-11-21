@@ -19,7 +19,7 @@ public class BoidsGameManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(boids.Count);
+
     }
 
     //FONCTION CREATION BOIDS RANDOM
@@ -27,7 +27,7 @@ public class BoidsGameManager : MonoBehaviour
     {
         for (int i = 0; i < spiderQuantity; i++)
         {
-            Instantiate(enemy, this.transform.position, Quaternion.Euler(0, 0, 0));
+            Instantiate(enemy, new Vector2 (this.transform.position.x + Random.Range(0, 5), this.transform.position.y + Random.Range(0, 5)), Quaternion.Euler(0, 0, 0));
         }
     }
 

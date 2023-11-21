@@ -27,8 +27,8 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.tag == "Enemy")
         {
-            Destroy(this.gameObject);
-            Debug.Log(" Ennemi vainqueur : " + collision.transform.name);
+            /*Destroy(this.gameObject);
+            Debug.Log(" Ennemi vainqueur : " + collision.transform.name);*/
         }
     }
 }

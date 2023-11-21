@@ -14,6 +14,7 @@ public class EnemyBoids : MonoBehaviour
     public float rotationSpeed = 20.0f;
     public float neighborRadius = 2.0f;
     public float avoidanceRadius = 2.0f;
+    private Vector2 direction;
 
     void Start()
     {
@@ -59,26 +60,26 @@ public class EnemyBoids : MonoBehaviour
         // Obtient les voisins proches
         List<Transform> neighbors = GetNeighbors();
 
-        foreach (var n in neighbors)
-        {
-            Debug.Log(n);
-        }
-        Debug.Log("-------------------");
+        Vector2 directionToTarget = target.transform.position - this.transform.position;
+        directionToTarget.Normalize();
 
         // Calcule la direction moyenne des voisins
-        Vector2 alignment = ComputeAlignment(neighbors);
+        Vector2 alignment = ComputeAlignment(neighbors, directionToTarget);
         // Calcule la position moyenne des voisins
         Vector2 cohesion = ComputeCohesion(neighbors);
         // Évite les collisions avec les voisins
         Vector2 avoidance = ComputeAvoidance(neighbors);
 
         // Applique les règles pour mettre à jour la direction
-        Vector2 direction = alignment + cohesion + avoidance;
+        Vector2 boidsDirection = alignment + cohesion + avoidance;
+        boidsDirection.Normalize();
 
-        // Oriente le boid dans la nouvelle direction
+
 
         // Déplace le boid
-        transform.position = Vector2.MoveTowards(this.transform.position, target.transform.position, speed * Time.deltaTime);
+        direction = directionToTarget + boidsDirection;
+        transform.position = Vector2.MoveTowards(this.transform.position, directionToTarget + boidsDirection, speed * Time.deltaTime);
+        
     }
 
     List<Transform> GetNeighbors()
@@ -103,13 +104,14 @@ public class EnemyBoids : MonoBehaviour
         return neighbors;
     }
 
-    Vector2 ComputeAlignment(List<Transform> neighbors)
+    Vector2 ComputeAlignment(List<Transform> neighbors, Vector2 directionToTarget)
     {
         Vector2 alignment = Vector2.zero;
 
         foreach (var neighbor in neighbors)
         {
-            alignment += (Vector2)neighbor.up;
+            alignment += direction + directionToTarget;
+            Debug.Log(neighbor.up);
         }
 
         alignment /= neighbors.Count;

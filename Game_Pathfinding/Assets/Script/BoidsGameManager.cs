@@ -27,7 +27,7 @@ public class BoidsGameManager : MonoBehaviour
     {
         for (int i = 0; i < spiderQuantity; i++)
         {
-            Instantiate(enemy, new Vector2(28.5f, -14.5f), Quaternion.Euler(0, 0, 0));
+            Instantiate(enemy, this.transform.position, Quaternion.Euler(0, 0, 0));
         }
     }
 

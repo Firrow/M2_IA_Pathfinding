@@ -8,41 +8,21 @@ public class EnemyBoids : MonoBehaviour
     private BoidsGameManager gameManager;
     private List<GameObject> AllSpiders = new List<GameObject>();
     private Rigidbody rb;
+    private GameObject target;
+
+    public float speed = 3.0f;
+    public float rotationSpeed = 20.0f;
+    public float neighborRadius = 2.0f;
+    public float avoidanceRadius = 2.0f;
 
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BoidsGameManager>();
         AllSpiders = gameManager.boids;
         rb = this.GetComponent<Rigidbody>();
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update()
-    {
-        moveCloser(AllSpiders);
-    }
-
-    // Calculer la distance avec un autre Boid
-    private float DistanceBetweenTwoSpiders(GameObject spider)
-    {
-        return Vector3.Distance(this.transform.position, spider.transform.position);
-    }
-
-    // FONCTION D'ATTRACTION moveCloser(tableau boids) : 
-    private void moveCloser(List<GameObject> spiders)
-    {
-        float avg = 0;
-        foreach (var spider in spiders)
-        {
-            if (spider != this.gameObject)
-            {
-                avg += Vector3.Distance(spider.transform.position, this.transform.position);
-            }
-        }
-
-        avg /= spiders.Count;
-
-        rb.velocity -= new Vector3((avg / 100), (avg / 100), 0); // DONT WORK
-    }
     // Calculer la distance moyenne avec les autres boids
     // Adapter la vitesse (-=) de chaque boids en fonction de cette distance
 
@@ -59,13 +39,13 @@ public class EnemyBoids : MonoBehaviour
 
     // Update() :
     // Pour chaque boids :
-        // Pour chaque boids :
-            // Si le boid n'est pas le même :
-                // On récupère la distance et si elle est pas trop grande, on ajoute le boids au groupe fermé (closeBoids)
-        // Appel moveCloser()
-        // Appel moveWith()
-        // Appel moveAway()
-        // Appel move()
+    // Pour chaque boids :
+    // Si le boid n'est pas le même :
+    // On récupère la distance et si elle est pas trop grande, on ajoute le boids au groupe fermé (closeBoids)
+    // Appel moveCloser()
+    // Appel moveWith()
+    // Appel moveAway()
+    // Appel move()
 
 
 
@@ -73,4 +53,101 @@ public class EnemyBoids : MonoBehaviour
 
     // Qu'est ce que closeBoids ? les boids qui sont dans une zone qu'on considère
     // Comment marche la fonction de répulsion ?
+
+    void Update()
+    {
+        // Obtient les voisins proches
+        List<Transform> neighbors = GetNeighbors();
+
+        foreach (var n in neighbors)
+        {
+            Debug.Log(n);
+        }
+        Debug.Log("-------------------");
+
+        // Calcule la direction moyenne des voisins
+        Vector2 alignment = ComputeAlignment(neighbors);
+        // Calcule la position moyenne des voisins
+        Vector2 cohesion = ComputeCohesion(neighbors);
+        // Évite les collisions avec les voisins
+        Vector2 avoidance = ComputeAvoidance(neighbors);
+
+        // Applique les règles pour mettre à jour la direction
+        Vector2 direction = alignment + cohesion + avoidance;
+
+        // Oriente le boid dans la nouvelle direction
+
+        // Déplace le boid
+        transform.position = Vector2.MoveTowards(this.transform.position, target.transform.position, speed * Time.deltaTime);
+    }
+
+    List<Transform> GetNeighbors()
+    {
+        //Collider[] colliders = Physics.OverlapSphere(transform.position, neighborRadius);
+        List<CircleCollider2D> colliders = new List<CircleCollider2D>();
+
+        foreach (var spider in AllSpiders)
+        {
+            colliders.Add(spider.GetComponent<CircleCollider2D>());
+        }
+        List<Transform> neighbors = new List<Transform>();
+
+        foreach (var collider in colliders)
+        {
+            if (collider.transform != transform)
+            {
+                neighbors.Add(collider.transform);
+            }
+        }
+
+        return neighbors;
+    }
+
+    Vector2 ComputeAlignment(List<Transform> neighbors)
+    {
+        Vector2 alignment = Vector2.zero;
+
+        foreach (var neighbor in neighbors)
+        {
+            alignment += (Vector2)neighbor.up;
+        }
+
+        alignment /= neighbors.Count;
+
+        return alignment;
+    }
+
+    Vector2 ComputeCohesion(List<Transform> neighbors)
+    {
+        Vector2 cohesion = Vector2.zero;
+
+        foreach (var neighbor in neighbors)
+        {
+            cohesion += (Vector2)neighbor.position;
+        }
+
+        cohesion /= neighbors.Count;
+
+        return cohesion - (Vector2)transform.position;
+    }
+
+    Vector2 ComputeAvoidance(List<Transform> neighbors)
+    {
+        Vector2 avoidance = Vector2.zero;
+
+        foreach (var neighbor in neighbors)
+        {
+            if (Vector2.Distance(transform.position, neighbor.position) < avoidanceRadius)
+            {
+                avoidance += (Vector2)transform.position - (Vector2)neighbor.position;
+            }
+        }
+
+        return avoidance;
+    }
+
+    /*private void MoveSpider()
+    {
+        
+    }*/
 }

@@ -42,7 +42,7 @@ public class EnemyBoids : MonoBehaviour
 
 
 
-        // Déplace le boid
+        // Déplace le boid PROBLEME ICI
         this.transform.position = Vector2.MoveTowards(this.transform.position, ((Vector3)directionTarget - this.transform.position) + (Vector3)boidsDirection, speed * Time.deltaTime);
         //this.transform.position += (Vector3)boidsDirection + ((Vector3)directionTarget - this.transform.position);
     }

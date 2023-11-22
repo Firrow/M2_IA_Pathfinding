@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoidsGameManager : MonoBehaviour
 {
-    [Range(1.0f, 25.0f)]
+    [Range(1, 25)]
     public int spiderQuantity;
     public GameObject enemy;
     public List<GameObject> boids = new List<GameObject>();
@@ -37,6 +37,7 @@ public class BoidsGameManager : MonoBehaviour
         {
             boids.Add(spider);
         }
+
     }
 
 }

@@ -14908,7 +14908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8542335367475540846, guid: 28b04189f0a30d941b670181c0f1d18d, type: 3}
       propertyPath: spiderQuantity
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8583377128769627669, guid: 28b04189f0a30d941b670181c0f1d18d, type: 3}
       propertyPath: m_LocalPosition.x

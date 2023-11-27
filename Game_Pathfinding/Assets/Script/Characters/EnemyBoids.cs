@@ -11,15 +11,15 @@ public class EnemyBoids : MonoBehaviour
 
     public float speed = 4.0f;
     public float rotationSpeed = 20.0f; // vitesse aléatoire
-    public float avoidanceRadius = 20.0f;
-    public Vector2 velocity;
+    public float avoidanceRadius = 3.0f;
+    public Vector3 velocity;
 
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BoidsGameManager>();
         AllSpiders = gameManager.boids;
         target = GameObject.FindGameObjectWithTag("Player");
-        velocity = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
+        velocity = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
     }
 
     void Update()
@@ -27,24 +27,20 @@ public class EnemyBoids : MonoBehaviour
         // Obtient les voisins proches
         List<Transform> neighbors = GetNeighbors();
 
-        Vector2 directionTarget = target.transform.position;
-        //directionTarget.Normalize();
+        Vector3 positionTarget = target.transform.position - this.transform.position;
+        positionTarget.Normalize();
 
         // Calcule la direction moyenne des voisins
-        Vector2 alignment = MoveWith(neighbors);
+        Vector3 alignment = MoveWith(neighbors);
         // Calcule la position moyenne des voisins
-        Vector2 cohesion = MoveCloser(neighbors);
+        Vector3 cohesion = MoveCloser(neighbors);
         // Évite les collisions avec les voisins
-        Vector2 avoidance = MoveAway(neighbors);
-
-        // Applique les règles pour mettre à jour la direction
-        Vector2 boidsDirection = alignment + cohesion + avoidance;
+        Vector3 avoidance = MoveAway(neighbors);
 
 
-
-        // Déplace le boid PROBLEME ICI
-        this.transform.position = Vector2.MoveTowards(this.transform.position, ((Vector3)directionTarget - this.transform.position) + (Vector3)boidsDirection, speed * Time.deltaTime);
-        //this.transform.position += (Vector3)boidsDirection + ((Vector3)directionTarget - this.transform.position);
+        // Applique les règles + Déplace le boid
+        velocity = (positionTarget/150f) + alignment + (cohesion/1000f) + (avoidance/10f);
+        this.transform.position += velocity;
     }
 
     List<Transform> GetNeighbors()
@@ -63,7 +59,7 @@ public class EnemyBoids : MonoBehaviour
 
 
     //Rule1
-    Vector2 MoveCloser(List<Transform> neighbors)
+    Vector3 MoveCloser(List<Transform> neighbors)
     {
         Vector2 cohesion = Vector2.zero;
 
@@ -78,15 +74,15 @@ public class EnemyBoids : MonoBehaviour
     }
 
     //Rule2
-    Vector2 MoveAway(List<Transform> neighbors)
+    Vector3 MoveAway(List<Transform> neighbors)
     {
-        Vector2 avoidance = Vector2.zero;
+        Vector3 avoidance = Vector3.zero;
 
         foreach (var neighbor in neighbors)
         {
-            if (Vector2.Distance(this.transform.position, neighbor.position) < avoidanceRadius)
+            if (Vector3.Distance(this.transform.position, neighbor.position) < avoidanceRadius)
             {
-                avoidance -= ((Vector2)neighbor.position - (Vector2)this.transform.position);
+                avoidance -= (neighbor.position - this.transform.position);
             }
         }
 
@@ -94,9 +90,9 @@ public class EnemyBoids : MonoBehaviour
     }
 
     //Rule3
-    Vector2 MoveWith(List<Transform> neighbors)
+    Vector3 MoveWith(List<Transform> neighbors)
     {
-        Vector2 alignment = Vector2.zero;
+        Vector3 alignment = Vector3.zero;
 
         foreach (var neighbor in neighbors)
         {
@@ -106,7 +102,6 @@ public class EnemyBoids : MonoBehaviour
 
         alignment /= neighbors.Count;
 
-        //return (alignment - this.GetComponent<Rigidbody2D>().velocity) / 8;
         return (alignment - this.velocity) / 100;
     }
 
@@ -114,11 +109,6 @@ public class EnemyBoids : MonoBehaviour
     {
         
     }*/
-
-
-
-
-
 
 
 

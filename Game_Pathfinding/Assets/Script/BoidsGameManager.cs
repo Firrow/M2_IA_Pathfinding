@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BoidsGameManager : MonoBehaviour
 {
-    [Range(1, 25)]
+    [Range(1, 35)]
     public int spiderQuantity;
+    [Range(1, 5)]
+    public int spiderAvoidanceRadius;
+
     public GameObject enemy;
     public List<GameObject> boids = new List<GameObject>();
 

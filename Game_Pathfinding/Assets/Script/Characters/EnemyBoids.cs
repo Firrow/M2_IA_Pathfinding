@@ -8,11 +8,11 @@ public class EnemyBoids : MonoBehaviour
     private BoidsGameManager gameManager;
     private List<GameObject> AllSpiders = new List<GameObject>();
     private GameObject target;
+    private float avoidanceRadius;
 
-    public float speed = 4.0f;
-    public float rotationSpeed = 20.0f; // vitesse aléatoire
-    public float avoidanceRadius = 3.0f;
+    public float rotationSpeed = 20.0f;
     public Vector3 velocity;
+
 
     void Start()
     {
@@ -20,28 +20,16 @@ public class EnemyBoids : MonoBehaviour
         AllSpiders = gameManager.boids;
         target = GameObject.FindGameObjectWithTag("Player");
         velocity = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
+        avoidanceRadius = gameManager.spiderAvoidanceRadius;
     }
 
     void Update()
     {
-        // Obtient les voisins proches
-        List<Transform> neighbors = GetNeighbors();
-
-        Vector3 positionTarget = target.transform.position - this.transform.position;
-        positionTarget.Normalize();
-
-        // Calcule la direction moyenne des voisins
-        Vector3 alignment = MoveWith(neighbors);
-        // Calcule la position moyenne des voisins
-        Vector3 cohesion = MoveCloser(neighbors);
-        // Évite les collisions avec les voisins
-        Vector3 avoidance = MoveAway(neighbors);
-
-
-        // Applique les règles + Déplace le boid
-        velocity = (positionTarget/150f) + alignment + (cohesion/1000f) + (avoidance/10f);
-        this.transform.position += velocity;
+        MoveSpider();
     }
+
+
+
 
     List<Transform> GetNeighbors()
     {
@@ -96,7 +84,6 @@ public class EnemyBoids : MonoBehaviour
 
         foreach (var neighbor in neighbors)
         {
-            //alignment += neighbor.GetComponent<Rigidbody2D>().velocity;
             alignment += neighbor.GetComponent<EnemyBoids>().velocity;
         }
 
@@ -105,10 +92,28 @@ public class EnemyBoids : MonoBehaviour
         return (alignment - this.velocity) / 100;
     }
 
-    /*private void MoveSpider()
+
+
+    private void MoveSpider()
     {
-        
-    }*/
+        // Obtient les voisins proches
+        List<Transform> neighbors = GetNeighbors();
+
+        Vector3 positionTarget = target.transform.position - this.transform.position;
+        positionTarget.Normalize();
+
+        // Calcule la direction moyenne des voisins
+        Vector3 alignment = MoveWith(neighbors);
+        // Calcule la position moyenne des voisins
+        Vector3 cohesion = MoveCloser(neighbors);
+        // Évite les collisions avec les voisins
+        Vector3 avoidance = MoveAway(neighbors);
+
+
+        // Applique les règles + Déplace le boid
+        velocity = (positionTarget / 150f) + alignment + (cohesion / 1000f) + (avoidance / 10f);
+        this.transform.position += velocity;
+    }
 
 
 
@@ -135,11 +140,4 @@ public class EnemyBoids : MonoBehaviour
     // Appel moveWith()
     // Appel moveAway()
     // Appel move()
-
-
-
-
-
-    // Qu'est ce que closeBoids ? les boids qui sont dans une zone qu'on considère
-    // Comment marche la fonction de répulsion ?
 }

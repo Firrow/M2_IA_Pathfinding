@@ -14903,12 +14903,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6644838168125503681, guid: 00e424bf6c543594eb467e6ec03d249d, type: 3}
     - target: {fileID: 8542335367475540846, guid: 28b04189f0a30d941b670181c0f1d18d, type: 3}
+      propertyPath: spiderSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8542335367475540846, guid: 28b04189f0a30d941b670181c0f1d18d, type: 3}
       propertyPath: SpiderQuantity
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8542335367475540846, guid: 28b04189f0a30d941b670181c0f1d18d, type: 3}
       propertyPath: spiderQuantity
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8542335367475540846, guid: 28b04189f0a30d941b670181c0f1d18d, type: 3}
+      propertyPath: spiderAvoidanceRadius
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8583377128769627669, guid: 28b04189f0a30d941b670181c0f1d18d, type: 3}
       propertyPath: m_LocalPosition.x

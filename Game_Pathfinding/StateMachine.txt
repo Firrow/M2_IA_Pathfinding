@@ -1,0 +1,6 @@
+StateMachine :
+
+COCCI :
+itemFly : araignées poursuivent joueur
+itemAttack : araignée fuient joueur
+itemStop : stoppent araignées

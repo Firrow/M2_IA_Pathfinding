@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class EnemyBoids : MonoBehaviour
+public class StateEnemy : MonoBehaviour
 {
-    private BoidsGameManager gameManager;
+    private StateBoidsGameManager gameManager;
     private List<GameObject> AllSpiders = new List<GameObject>();
     private GameObject target;
     private float avoidanceRadius;
+    private string newState;
+    private State currentState;
+    private float speed;
+    Dictionary<string, State> idToState = new Dictionary<string, State>();
 
     public float rotationSpeed = 20.0f;
     public Vector3 velocity;
@@ -16,15 +20,23 @@ public class EnemyBoids : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<BoidsGameManager>();
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StateBoidsGameManager>();
         AllSpiders = gameManager.boids;
         target = GameObject.FindGameObjectWithTag("Player");
         velocity = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
         avoidanceRadius = gameManager.spiderAvoidanceRadius;
+        speed = gameManager.speed;
+
+        //State Machine
+        idToState.Add("attack", new State(1));
+        idToState.Add("stop", new State(0));
+        idToState.Add("fly", new State(-1));
+        this.currentState = idToState["stop"];
     }
 
     void Update()
     {
+        this.currentState = idToState[NewState];
         MoveSpider();
     }
 
@@ -84,7 +96,7 @@ public class EnemyBoids : MonoBehaviour
 
         foreach (var neighbor in neighbors)
         {
-            alignment += neighbor.GetComponent<EnemyBoids>().velocity;
+            alignment += neighbor.GetComponent<StateEnemy>().velocity;
         }
 
         alignment /= neighbors.Count;
@@ -99,8 +111,11 @@ public class EnemyBoids : MonoBehaviour
         // Obtient les voisins proches
         List<Transform> neighbors = GetNeighbors();
 
-        Vector3 positionTarget = target.transform.position - this.transform.position;
+        Debug.Log("truc : " + currentState);
+        Vector3 positionTarget = currentState.getDirection(this.transform.position, target.transform.position);
+        
         positionTarget.Normalize();
+        
 
         // Calcule la direction moyenne des voisins
         Vector3 alignment = MoveWith(neighbors);
@@ -112,10 +127,15 @@ public class EnemyBoids : MonoBehaviour
 
         // Applique les règles + Déplace le boid
         velocity = (positionTarget / 150f) + alignment + (cohesion / 1000f) + (avoidance / 10f);
+        velocity *= speed;
         this.transform.position += velocity;
     }
 
-
+    public string NewState
+    {
+        get { return newState; }
+        set { newState = value; }
+    }
 
     // Calculer la distance moyenne avec les autres boids
     // Adapter la vitesse (-=) de chaque boids en fonction de cette distance

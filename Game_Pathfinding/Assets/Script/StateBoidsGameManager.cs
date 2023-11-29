@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoidsGameManager : MonoBehaviour
+public class StateBoidsGameManager : MonoBehaviour
 {
     [Range(1, 35)]
     public int spiderQuantity;
@@ -10,21 +10,24 @@ public class BoidsGameManager : MonoBehaviour
     public int speed;
     [Range(1, 5)]
     public int spiderAvoidanceRadius;
-
     public GameObject enemy;
     public List<GameObject> boids = new List<GameObject>();
+
+    private string currentState;
 
 
     void Start()
     {
+        currentState = "attack";
         InstantiateBoids();
         GetAllSpiders();
+        GetState();
     }
 
 
     void Update()
     {
-
+        GetState();
     }
 
     //FONCTION CREATION BOIDS RANDOM
@@ -44,5 +47,20 @@ public class BoidsGameManager : MonoBehaviour
         }
 
     }
+
+    private void GetState()
+    {
+        foreach (var boid in boids)
+        {
+            boid.GetComponent<StateEnemy>().NewState = currentState;
+        }
+    }
+
+    public string CurrentState
+    {
+        get { return currentState; }
+        set { currentState = value; }
+    }
+
 
 }

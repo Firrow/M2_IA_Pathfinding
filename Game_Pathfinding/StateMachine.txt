@@ -1,6 +1,14 @@
-StateMachine :
+Boids : Ouvrir la scène des boids + utiliser le BoidsGameManager pour modifier les paramètres
+Les boids sont générés aléatoirement dans une zone autour du GameManager.
+Ils se déplacent vers la coccinelle et modifient leur direction en fonction de la position de cette dernière.
 
-COCCI :
-itemFly : araignées poursuivent joueur
-itemAttack : araignée fuient joueur
-itemStop : stoppent araignées
+
+Machine à états : Ouvrir la scène State Machine
+Utilisation du pattern State pour créer les différents états des boids. L'état des boids changent en fonction
+de l'item touché par le joueur.
+Player.cs = détecte quel item le joueur a touché.
+StateBoidsGameManager.cs = Indique au boids quel état est actuellement en place.
+StateEnemy.cs = Gère le boids : règles + type de déplacement en fonction de l'état.
+State.cs = gère le changement d'état -> ici le changement d'état est lié au vecteur de déplacement. Lors du
+					changement d'état, la fonction modifiant le vecteur de déplacement
+					est appelé.

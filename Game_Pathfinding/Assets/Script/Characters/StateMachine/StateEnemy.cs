@@ -31,7 +31,6 @@ public class StateEnemy : MonoBehaviour
         idToState.Add("attack", new State(1));
         idToState.Add("stop", new State(0));
         idToState.Add("fly", new State(-1));
-        this.currentState = idToState["stop"];
     }
 
     void Update()
@@ -111,7 +110,6 @@ public class StateEnemy : MonoBehaviour
         // Obtient les voisins proches
         List<Transform> neighbors = GetNeighbors();
 
-        Debug.Log("truc : " + currentState);
         Vector3 positionTarget = currentState.getDirection(this.transform.position, target.transform.position);
         
         positionTarget.Normalize();

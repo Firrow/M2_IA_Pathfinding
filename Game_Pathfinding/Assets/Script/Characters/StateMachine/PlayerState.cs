@@ -38,7 +38,6 @@ public class PlayerState : MonoBehaviour
         }
         else if (collision.transform.tag == "Item")
         {
-            Debug.Log("collision");
             Item item = collision.gameObject.GetComponent<Item>();
 
             gameManager.CurrentState = item.type;
